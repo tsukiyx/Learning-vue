@@ -9,7 +9,7 @@
   </div>
 
   <section
-    v-if="toggleCards()"
+    v-if="showCards"
     class="flex m-4 flex-wrap p-4 justify-center h-auto gap-3 border-cyan-400 border rounded-lg"
   >
     <div
@@ -25,8 +25,10 @@
 
 <script setup lang="ts">
 import { useTodo } from '@/composable/UseTodo';
+import { computed } from 'vue';
 
-const { taskName, taskDscrpt, addTask, todos, toggleCards } = useTodo();
+const { taskName, taskDscrpt, addTask, todos } = useTodo();
+const showCards = computed(() => todos.value.length > 0);
 </script>
 
 <style scoped>

@@ -10,19 +10,9 @@ export const useTodo = () => {
   const taskName = ref<string>('');
   const taskDscrpt = ref<string>('');
   const todos = ref<Todos[]>([]);
-  const showTaskCards = ref<boolean>(false);
-
-  const toggleCards = (): boolean => {
-    if (todos.value.length > 0) {
-      showTaskCards.value = !showTaskCards.value;
-      return showTaskCards.value;
-    }
-
-    return showTaskCards.value;
-  };
 
   const addTask = () => {
-    if (!taskName.value.trim || !taskDscrpt.value.trim()) return;
+    if (!taskName.value.trim() || !taskDscrpt.value.trim()) return;
 
     todos.value.push({
       name: taskName.value,
@@ -39,6 +29,5 @@ export const useTodo = () => {
     taskDscrpt,
     todos,
     addTask,
-    toggleCards,
   };
 };
