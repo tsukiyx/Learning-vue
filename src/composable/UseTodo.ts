@@ -23,11 +23,21 @@ export const useTodo = () => {
     taskDscrpt.value = '';
   };
 
+  const deleteTasks = () => {
+    todos.value.splice(0, todos.value.length);
+  };
+
+  const deleteTask = (index: number) => {
+    todos.value.splice(index, 1);
+  };
+
   return {
     userName,
     taskName,
     taskDscrpt,
     todos,
     addTask,
+    deleteTasks,
+    deleteTask,
   };
 };
