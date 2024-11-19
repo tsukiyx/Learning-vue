@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 interface Todos {
   name: string;
@@ -10,6 +10,13 @@ export const useTodo = () => {
   const taskName = ref<string>('');
   const taskDscrpt = ref<string>('');
   const todos = ref<Todos[]>([]);
+  const storageKey = 'todo-list';
+  const userStorageKey = 'user-name';
+
+  const loadUserName = (): void => {
+    const saveName = localStorage.getItem(userStorageKey);
+    userName.value = saveName ? JSON.parse(saveName) : [];
+  };
 
   const addTask = () => {
     if (!taskName.value.trim() || !taskDscrpt.value.trim()) return;
@@ -31,6 +38,29 @@ export const useTodo = () => {
     todos.value.splice(index, 1);
   };
 
+  const loadTodos = (): void => {
+    const savedTodo = localStorage.getItem(storageKey);
+    todos.value = savedTodo ? JSON.parse(savedTodo) : [];
+  };
+
+  watch(
+    userName,
+    (newUserName) => {
+      localStorage.setItem(userStorageKey, JSON.stringify(newUserName));
+    },
+  );
+
+  watch(
+    todos,
+    (newTodos) => {
+      localStorage.setItem(storageKey, JSON.stringify(newTodos));
+    },
+    { deep: true },
+  );
+
+  loadUserName();
+  loadTodos();
+
   return {
     userName,
     taskName,
@@ -41,3 +71,5 @@ export const useTodo = () => {
     deleteTask,
   };
 };
+
+export type UseTodo = ReturnType<typeof useTodo>;

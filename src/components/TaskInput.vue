@@ -34,9 +34,8 @@
 import { useTodo } from '@/composable/UseTodo';
 import { computed } from 'vue';
 
-const { taskName, taskDscrpt, addTask,  deleteTasks, todos, deleteTask } = useTodo();
+const { taskName, taskDscrpt, addTask, deleteTasks, todos, deleteTask } = useTodo();
 const showCards = computed(() => todos.value.length > 0);
-
 </script>
 
 <style scoped>
